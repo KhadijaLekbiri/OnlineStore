@@ -1,6 +1,7 @@
 <template>
   <div>
-    <NuxtLayout name="default"></NuxtLayout>
+    <NuxtLayout></NuxtLayout>
+    <div></div>
     <!-- <nuxt-link to="/about">lolo</nuxt-link> -->
 </div>
 </template>

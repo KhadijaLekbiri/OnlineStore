@@ -14,21 +14,21 @@
     </div>
 </template>
 
-<script setup>
-    import {ref} from "vue";
+<script>
+    // import {ref} from "vue";
 
-    const product = ref(null);
-    const route = useRoute();
+    // const product = ref(null);
+    // const route = useRoute();
 
-    console.log("haniiiii ",route.params.id);
+    // console.log("haniiiii ",route.params.id);
     /**
      * Utiliser le code adéquat pour récupérer le id avec useRoute() 
      * ou autres moyens si vous le voulez
      */
     
-    definePageMeta({
-        layout: 'Product',
-    });
+    // definePageMeta({
+    //     layout: 'Product',
+    // });
      /**
      * Mettez le code adéquat pour permettre à products/[id].vue 
      * d'avoir le layout Product.vue
@@ -49,16 +49,34 @@
      */
 
     // const {data: product, error} = useFetch('https://fakestoreapi.com/products/${route.params.id}',
-    fetch(`https://fakestoreapi.com/products/${route.params.id}`)
-        .then((res) => res.json())
-        .then((json) => {
-            console.log(json);
-            product.value = json;
-        })
-        .catch((error) => 
-            console.error("failed to fetch"));
-//   .then(product = json);
-    console.log('waiting for prod  !!!', product.value);
+export default {
+    layout: 'Product',
+    data(){
+        return {
+            product: null,
+        }
+    },
+    async mounted() {
+        try {
+            const Id = this.$route.params.id;
+            const res = await fetch(`https://fakestoreapi.com/products/${Id}`); 
+            this.product = await res.json();
+        }
+        catch {  
+            console.log("NO PROD")};
+
+//     fetch(`https://fakestoreapi.com/products/${route.params.id}`)
+//         .then((res) => res.json())
+//         .then((json) => {
+//             console.log(json);
+//             product.value = json;
+//         })
+//         .catch((error) => 
+//             console.error("failed to fetch"));
+// //   .then(product = json);
+//     console.log('waiting for prod  !!!', product.value);
+},
+}
     //We throw an error in case there is no product so we can use the error.vue
     // fatal property force the app to show the error (in order is created in the browser)
     // if(!product.value)
